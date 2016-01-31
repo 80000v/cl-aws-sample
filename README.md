@@ -1,5 +1,5 @@
 # cl-aws-sample
-Common Lisp WEBApp sample on AWS Elastic Beanstalk.
+CommonLisp WEBApp sample on AWS Elastic Beanstalk.
 
 # 作業方針
 

@@ -1,7 +1,7 @@
 {
   "name": "cl-aws-sample",
   "version": "1.0.0",
-  "description": "A sample WEBApp with CommonLisp and React on the AWS.",
+  "description": "A sample WEBApp with CommonLisp and React on the AWS Elastic Beanstalk.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
