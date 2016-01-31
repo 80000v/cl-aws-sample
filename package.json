@@ -1,0 +1,19 @@
+{
+  "name": "cl-aws-sample",
+  "version": "1.0.0",
+  "description": "Smple App with CommonLisp and React on the AWS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keicy/cl-aws-sample.git"
+  },
+  "author": "keicy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keicy/cl-aws-sample/issues"
+  },
+  "homepage": "https://github.com/keicy/cl-aws-sample#readme"
+}
