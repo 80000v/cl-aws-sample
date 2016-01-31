@@ -1,7 +1,7 @@
 {
   "name": "cl-aws-sample",
   "version": "1.0.0",
-  "description": "Smple App with CommonLisp and React on the AWS.",
+  "description": "A sample WEBApp with CommonLisp and React on the AWS.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,24 @@
   "bugs": {
     "url": "https://github.com/keicy/cl-aws-sample/issues"
   },
-  "homepage": "https://github.com/keicy/cl-aws-sample#readme"
+  "homepage": "https://github.com/keicy/cl-aws-sample#readme",
+  "dependencies": {
+    "history": "^1.17.0",
+    "react": "^0.14.7",
+    "react-bootstrap": "^0.28.2",
+    "react-dom": "^0.14.7",
+    "react-router": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "espower-babel": "^4.0.1",
+    "jsdom": "^8.0.1",
+    "mocha": "^2.4.5",
+    "power-assert": "^1.2.0",
+    "webpack": "^1.12.12",
+    "xmlhttprequest": "^1.8.0"
+  }
 }
