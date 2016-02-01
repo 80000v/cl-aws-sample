@@ -4,6 +4,8 @@
   "description": "A sample WEBApp with CommonLisp and React on the AWS Elastic Beanstalk.",
   "main": "index.js",
   "scripts": {
+    "build": "node_modules/webpack/bin/webpack.js",
+    "watch": "node_modules/webpack/bin/webpack.js -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
