@@ -1,0 +1,12 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+
+(qlot:quickload :cl-aws-sample)
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (cl-aws-sample:start :server :woo :port 7777)
+  (loop while t do (sleep 86400)))

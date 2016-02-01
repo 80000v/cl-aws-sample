@@ -16,8 +16,8 @@
 (setf (config-env-var) "APP_ENV")
 
 (defparameter *application-root*   (asdf:system-source-directory :cl-aws-sample))
-(defparameter *static-directory*   (merge-pathnames #P"static/" *application-root*))
-(defparameter *template-directory* (merge-pathnames #P"templates/" *application-root*))
+(defparameter *static-directory*   (merge-pathnames #P"public/" *application-root*))
+(defparameter *template-directory* (merge-pathnames #P"public/" *application-root*))
 
 (defconfig :common
   `(:databases ((:maindb :sqlite3 :database-name ":memory:"))))
