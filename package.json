@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node_modules/webpack/bin/webpack.js",
     "watch": "node_modules/webpack/bin/webpack.js -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec --compilers jsx:espower-babel/guess public/t/**/*-t.jsx"
   },
   "repository": {
     "type": "git",
