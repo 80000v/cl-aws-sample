@@ -16,12 +16,12 @@
 (in-package :cl-aws-sample.app)
 
 (builder
- (:static
-  :path (lambda (path)
-          (if (ppcre:scan "^(?:/images/|/css/|/js/|/robot\\.txt$|/favicon\\.ico$)" path)
+ :session
+ (:static :path (lambda (path)
+          (if (ppcre:scan "^(?:/bundle.js)" path)
               path
               nil))
-  :root *static-directory*)
+          :root *static-directory*)
  (if (productionp)
      nil
      :accesslog)
@@ -29,7 +29,6 @@
      `(:backtrace
        :output ,(getf (config) :error-log))
      nil)
- :session
  (if (productionp)
      nil
      (lambda (app)
