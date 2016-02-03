@@ -5,7 +5,10 @@
         :prove))
 (in-package :cl-aws-sample-test)
 
-(plan nil)
+(plan 2)
+
+(ok (not (find 4 '(1 2 3))))
+(is 4 4)
 
 ;; blah blah blah.
 

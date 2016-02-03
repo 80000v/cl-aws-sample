@@ -4,6 +4,7 @@
 exec ros -Q -- $0 "$@"
 |#
 
+(ql:quickload :qlot)
 (qlot:quickload :cl-aws-sample)
 
 (defun main (&rest argv)
