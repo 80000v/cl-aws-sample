@@ -19,6 +19,8 @@ APコンテナに必要十分であるべきは、
 Dockerfileでのプロビジョニング中、何らかの形で、
 bundle.jsを取得できれば良い。
 
+========= 考えフェーズ 1 =========
+
 【方法案】
 bundle.jsを作成するタイミングによって下記2つが考えられる。
 
@@ -36,3 +38,75 @@ Dockerfileでのプロビジョニング中、そのbundle.jsを取得して配�
 手順や準備が複雑になるのは間違いない。
 まずは余計な効率化はせずに、全部一緒にDockerfileで処理した方が簡単かも
 しれない。
+
+========= 考えフェーズ 2 =========
+
+【必要な動作】
+
+1. bundle.jsの作成
+2. node__modulesやReactコード,package.jsonなどの動作に必要ないファイル削除
+
+【方法案】
+CI中に全てを解決する。
+
+1. ソース取得
+2. bundle.js作成
+3. テスト実施
+4. node__modulesやReactコード,package.jsonなど削除
+5. Dockerfileよりイメージ作成
+6. DockerHubにイメージをpush
+7. Hookにより本番にコンテナがデプロイ
+
+CI中にプロジェクトにbundle.jsを作成し、その変更後のプロジェクトを用いて
+Dockerfileがプロビジョニングを実施する
+
+※ 補足 ※
+* こんなことができるのか？
+	* 変更後のプロジェクトを別にリポジトリで持たないと無理かも、。
+	* [ADD .] コマンドを使うとできるっぽい！
+		* Dockerfileがあるフォルダを参照しそれをコンテナ内のOSに追加できる
+		* http://kimh.github.io/blog/jp/docker/gothas-in-writing-dockerfile-jp/#add_and_understanding_context_in_dockerfile
+		* ★ https://github.com/awslabs/eb-demo-php-simple-app/blob/docker-apache/Dockerfile#L13
+* githubにpushした時点ではイメージは作成しない。CIで作成する。
+
+【補足】
+COPY とADD の違い
+http://qiita.com/hihihiroro/items/0956326d6731bc927166
+http://stackoverflow.com/questions/24958140/docker-copy-vs-add
+
+========= 考えフェーズ 3 =========
+シンプルに考えるならば、全てをDockerfile内で完結させる手もある
+
+1. npde インスコ
+2. bundle.js 作成
+3. node/その他ファイル 削除
+
+一方で、Dockerfileはあくまでシンプルに保ちたいのであれば、
+CI環境のほうでこれらの作業を実施するフェーズ2の方針になる。
+
+しかし、AWSにはイメージはデプロイできなさそうなので、
+こちらの考えにならざるを得なさそう？
+* いや、そんなことない。Dockerrun.aws.jsonの方をAWSデプロイに使うことで
+  CIでリポジトリにPushしたイメージをデプロイできる。
+
+【補足】
+http://docs.aws.amazon.com/ja_jp/elasticbeanstalk/latest/dg/create_deploy_docker_image.html
+* DockerfileからAWS側でイメージ＆コンテナ作成してほしい場合はDockerfileのみ
+* 既存のイメージからAWS側でコンテナを作成してほしい場合にはDockerrun.aws.json
+* Elastic Beanstalk には Dockerrun.aws.json ファイルのみを提供するか、このファイルと Dockerfile を 1 つの .zip ファイルに圧縮して提供することができます。両方のファイルを提供する場合、Dockerfile は Docker イメージを作成し、Dockerrun.aws.json ファイルはデプロイに必要な追加の情報を提供します。これについては後ほど説明します。Dockerfile と Dockerrun.aws.json ファイルの両方を提供する場合は、Dockerrun.aws.json ファイルにイメージを指定しないでください。Elastic Beanstalk は Dockerfile で指定されているイメージを使用し、Dockerrun.aws.json ファイルのイメージは無視します。
+
+
+【サンプルPJ】
+https://github.com/awslabs/eb-demo-php-simple-app/tree/docker-apache
+https://github.com/awslabs/eb-py-flask-signup/tree/docker
+
+【チュートリアル】
+http://dev.classmethod.jp/tool/docker/aws-elastic-beanstalk-for-docker-1/
+http://forrestinc.hatenablog.jp/entry/2015/07/03/173355
+
+【プラットフォーム比較】
+http://dev.classmethod.jp/cloud/aws-docker-service-catalog/
+ECSがとても良さそう。
+
+【参考】
+http://qiita.com/lciel/items/f114997f3278cea45527
